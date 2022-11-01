@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Bolsover.Sample
+namespace AlibreExportOpen.Sample
 {
     partial class SampleUserControl
     {

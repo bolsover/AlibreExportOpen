@@ -6,10 +6,10 @@ namespace AlibreExportOpen
     public class Globals
     {
         public static string InstallPath = (string) Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Alibre Design Add-Ons\",
-            "{305297BD-DE8D-4F36-86A4-AA5E69538A69}", null);
+            "{1177de0e-5965-11ed-9b6a-0242ac120002}", null);
 
-        public static Icon Icon = new Icon(InstallPath + "\\nexus.ico");
+        public static Icon Icon = new Icon(InstallPath + "\\3DPrint.ico");
 
-        public static Image cycloidalGear = Image.FromFile(InstallPath + "\\icons\\CycloidalGear.png");
+      
     }
 }

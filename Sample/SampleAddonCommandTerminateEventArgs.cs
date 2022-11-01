@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bolsover.Sample
+namespace AlibreExportOpen.Sample
 {
     public class SampleAddonCommandTerminateEventArgs : EventArgs
     {

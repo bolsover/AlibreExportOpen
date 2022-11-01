@@ -1,15 +1,15 @@
 ﻿using System.Windows.Forms;
 using AlibreX;
 
-namespace Bolsover.Sample
+namespace AlibreExportOpen.Sample
 {
     public partial class SampleUserControl : UserControl
     {
-        private IADSession session;
+        private IADSession _session;
 
         public SampleUserControl(IADSession session)
         {
-            this.session = session;
+            this._session = session;
             InitializeComponent();
         }
 
