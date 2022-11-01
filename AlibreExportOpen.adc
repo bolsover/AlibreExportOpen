@@ -1,0 +1,11 @@
+<AlibreDesignAddOn specificationVersion="2" friendlyName="Alibre Eport Open">
+<Author name="David Bolsover" link="https://github.com/bolsover/DataBrowserForAlibre"/>
+   <Copyright>Copyright (c) 2022. David Bolsover</Copyright>
+   <DLL type="Managed" loadedWhen="Startup" location="AlibreExportOpen.dll"/>
+   <Icon location="nexus.ico"/> 
+   <Menu text="Export and Open"/>
+   <Description>Alibre Export and Open</Description> 
+   <Workspace type="Always"/>
+   <Property name="Identifier" value="{1177de0e-5965-11ed-9b6a-0242ac120002}"/>
+</AlibreDesignAddOn>
+
