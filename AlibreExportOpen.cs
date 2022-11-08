@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using AlibreAddOn;
-using AlibreExportOpen.Sample;
 using AlibreX;
 
 namespace AlibreExportOpen
@@ -20,12 +19,16 @@ namespace AlibreExportOpen
 
         private IADRoot _alibreRoot;
         private IntPtr _parentWinHandle;
+        private bool _useSvgIcons;
 
         public AlibreExportOpen(IADRoot alibreRoot, IntPtr parentWinHandle)
         {
-            this._alibreRoot = alibreRoot;
-            this._parentWinHandle = parentWinHandle;
-            
+            _alibreRoot = alibreRoot;
+            _parentWinHandle = parentWinHandle;
+            string version = _alibreRoot.Version.Replace("PRODUCTVERSION ", "");
+            string[] versionarr = version.Split(',');
+            int majorVersion = int.Parse(versionarr[0]);
+            _useSvgIcons = majorVersion > 25;
         }
 
         #region Menus
@@ -89,7 +92,18 @@ namespace AlibreExportOpen
         /// <returns></returns>
         public ADDONMenuStates MenuItemState(int menuId, string sessionIdentifier)
         {
-            return ADDONMenuStates.ADDON_MENU_ENABLED;
+            
+            var session = _alibreRoot.Sessions.Item(sessionIdentifier);
+
+            switch (session)
+            {
+               
+                case IADAssemblySession: return ADDONMenuStates.ADDON_MENU_ENABLED;
+                case IADPartSession: return ADDONMenuStates.ADDON_MENU_ENABLED;
+            }
+            
+
+             return ADDONMenuStates.ADDON_MENU_GRAYED;
         }
 
         /// <summary>
@@ -109,7 +123,7 @@ namespace AlibreExportOpen
         /// <returns></returns>
         public string MenuIcon(int menuId)
         {
-            return "3DPrint.ico";
+            return _useSvgIcons ? "3DPrint.svg" : "3DPrint.ico";
         }
 
         /// <summary>
@@ -160,48 +174,7 @@ namespace AlibreExportOpen
         #endregion
 
 
-        #region Sample
-
-        /// <summary>
-        /// A dictionary to keep track of currently open EmptyAddOnCommand object.
-        /// </summary>
-        private readonly Dictionary<string, SampleAddOnCommand> _emptyAddOnCommands = new();
-
-        private IAlibreAddOnCommand DoSample(IADSession session)
-        {
-            SampleAddOnCommand sampleViewerAddOnCommand;
-            if (!_emptyAddOnCommands.ContainsKey(session.Identifier))
-            {
-                sampleViewerAddOnCommand = new SampleAddOnCommand(session);
-                sampleViewerAddOnCommand.SampleUserControl.Visible = true;
-                sampleViewerAddOnCommand.Terminate += SampleAddOnCommandOnTerminate;
-                _emptyAddOnCommands.Add(session.Identifier, sampleViewerAddOnCommand);
-            }
-            else
-            {
-                if (_emptyAddOnCommands.TryGetValue(session.Identifier, out sampleViewerAddOnCommand))
-                {
-                    sampleViewerAddOnCommand.UserRequestedClose();
-                    _emptyAddOnCommands.Remove(session.Identifier);
-                    return null;
-                }
-            }
-
-            return sampleViewerAddOnCommand;
-        }
-
-        private void SampleAddOnCommandOnTerminate(object sender, SampleAddonCommandTerminateEventArgs e)
-        {
-            SampleAddOnCommand sampleAddOnCommand;
-            if (_emptyAddOnCommands.TryGetValue(e.SampleAddOnCommand.Session.Identifier, out sampleAddOnCommand))
-            {
-                _emptyAddOnCommands.Remove(e.SampleAddOnCommand.Session.Identifier);
-            }
-        }
-
-        #endregion
-
-
+      
         /// <summary>
         /// Loads Data from AddOn
         /// </summary>

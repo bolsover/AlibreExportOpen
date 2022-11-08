@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Windows.Forms;
 using AlibreAddOn;
+using AlibreExportOpen;
 using AlibreX;
 
 namespace AlibreAddOnAssembly
@@ -15,6 +17,12 @@ namespace AlibreAddOnAssembly
         {
             alibreRoot = (IADRoot) pAutomationHook.Root;
             parentWinHandle = hwnd;
+            string version = alibreRoot.Version.Replace("PRODUCTVERSION ", "");
+            string[] versionarr = version.Split(',');
+            int majorVersion = int.Parse(versionarr[0]);
+            if (majorVersion < 25)
+                MessageBox.Show(Globals.AppName +"requires a newer version of Alibre Design", "Error");
+                // throw new Exception("This Add-on requires a newer version of Alibre Design");
             _alibreExportOpen = new AlibreExportOpen.AlibreExportOpen(alibreRoot, parentWinHandle);
         }
 
