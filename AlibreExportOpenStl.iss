@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "AlibreExportOpen"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.1"
 #define MyAppPublisher "David Bolsover"
 #define MyAppURL "https://github.com/bolsover/AlibreExportOpen"
 
@@ -36,6 +36,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
 Source: "D:\Repository\Jetbrains\Bolsover\AlibreExportOpen\bin\Debug\3DPrint.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Repository\Jetbrains\Bolsover\AlibreExportOpen\bin\Debug\3DPrint.svg"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Repository\Jetbrains\Bolsover\AlibreExportOpen\bin\Debug\AlibreExportOpen.adc"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Repository\Jetbrains\Bolsover\AlibreExportOpen\bin\Debug\AlibreExportOpen.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "D:\Repository\Jetbrains\Bolsover\AlibreExportOpen\bin\Debug\AlibreExportOpen.dll.config"; DestDir: "{app}"; Flags: ignoreversion
